@@ -1,0 +1,94 @@
+.game {
+    border: 2px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 480px;
+    height: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.restart {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+tr {
+    margin: 0;
+    padding: 0;
+}
+
+td {
+    width: 41px;
+    height: 41px;
+    margin: 0;
+    padding: 0;
+}
+
+td:hover {
+    opacity: 0.2;
+}
+
+td.top {
+    background: url('./images/top.jpg') no-repeat;
+}
+
+td.left-top {
+    background: url('./images/lefttop.jpg') no-repeat;
+}
+
+td.right-top {
+    background: url('./images/righttop.jpg') no-repeat;
+}
+
+td.left {
+    background: url('./images/left.jpg') no-repeat;
+}
+
+td.default {
+    background: url('./images/default.jpg') no-repeat;
+}
+
+td.right {
+    background: url('./images/right.jpg') no-repeat;
+}
+
+td.left-bottom {
+    background: url('./images/leftbottom.jpg') no-repeat;
+}
+
+td.bottom {
+    background: url('./images/bottom.jpg') no-repeat;
+}
+
+td.right-bottom {
+    background: url('./images/rightbottom.jpg') no-repeat;
+}
+
+td.black {
+    background: url('./images/black.png') no-repeat;
+    background-position: center center;
+    background-size: 30px 30px;
+}
+
+td.white {
+    background: url('./images/white.png') no-repeat;
+    background-position: center center;
+    background-size: 30px 30px;
+}
+
+.default {
+    margin: 0;
+    padding: 0;
+}
