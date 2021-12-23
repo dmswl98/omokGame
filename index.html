@@ -15,8 +15,60 @@
 
 <body>
     <div class="game">
-        <table class="table"></table>
-        <button class="restart">다시 시작하기</button>
+        <div class="game-intro">
+            <h1 class="title">오목 게임</h1>
+            <button class="fill-button start-button">게임 시작</button>
+            <button class="fill-button rule-button">게임 방법</button>
+        </div>
+
+        <div class="game-rule">
+            <h1 class="title">게임 방법</h1>
+            <p class="detail">
+                두 사람이 번갈아 돌을 놓아 아래와 같이 가로나 세로, <br>대각선으로 다섯 개의 연속된 돌을 먼저 만들면 승리합니다.
+            </p>
+            <div class="rules">
+                <div class="rule">
+                    <img src="./images/example1.png" alt="1">
+                </div>
+                <div class="rule">
+                    <img src="./images/example2.png" alt="2">
+                </div>
+                <div class="rule">
+                    <img src="./images/example3.png" alt="3">
+                </div>
+                <div class="rule">
+                    <img src="./images/example4.png" alt="4">
+                </div>
+            </div>
+            <button class="fill-button start-button">게임 시작</button>
+        </div>
+
+        <div class="game-board">
+            <div class="board">
+                <table class="table"></table>
+            </div>
+        </div>
+        <div class="turn">
+            <div class="turn-img">
+                <img src="./images/black.png" alt="black">
+            </div>
+        </div>
+        <div class="alert">
+            <div class="alert-box">
+                <div class="content">
+                    <p class="winner">winner</p>
+                    <p>승리</p>
+                </div>
+                <div class="button">
+                    <div class="restart">
+                        <a>다시 시작</a>
+                    </div>
+                    <div class="reload">
+                        <a>메인 화면</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="./script.js"></script>
 </body>

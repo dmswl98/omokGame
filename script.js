@@ -1,22 +1,38 @@
+const $intro = document.querySelector('.game-intro');
+const $startBtn = document.querySelectorAll('.start-button');
+const $ruleBtn = document.querySelector('.rule-button');
+const $rule = document.querySelector('.game-rule');
 const $table = document.querySelector('.table');
+const $turn = document.querySelector('.turn');
+const $alert = document.querySelector('.alert');
+const $winner = document.querySelector('.winner');
+const $restart = document.querySelector('.restart');
+const $reload = document.querySelector('.reload');
 
-let size = 10;
+let size = 15;
+
+window.onload = function () {
+  $alert.style.display = 'none';
+  $rule.style.display = 'none';
+  $turn.style.display = 'none';
+}
+
+$startBtn.forEach((btn, i) => {
+  btn.addEventListener('click', () => {
+    $intro.style.display = 'none';
+    $rule.style.display = 'none';
+    $turn.style.display = 'block';
+  })
+});
+
+$ruleBtn.addEventListener('click', () => {
+  $intro.style.display = 'none';
+  $rule.style.display = 'flex';
+});
 
 let order = true; //true(black), false(white)
 let data = Array.from(Array(size), () => Array(size).fill(0));
-let index = [];
-
-// function createData() { //data 초기화
-//   const row = Array.from({ length: size }, () => 0);
-//   const col = Array.from({ length: size }, () => 0);
-//   row.forEach((rowData, i) => {
-//     col.forEach((colData, j) => {
-//       index.push([i, j]);
-//     });
-//   });
-//   console.log(index);
-// }
-// createData();
+let isclicked = false;
 
 function drawTable() {
   for (let i = 0; i < size; i++) {
@@ -68,7 +84,7 @@ function onClickBlock(e) {
   const clicked = e.target;
   const rowIndex = clicked.parentNode.rowIndex; //tr의 rowIndex
   const cellIndex = clicked.cellIndex; //td의 cellIndex
-  console.log(clicked, rowIndex, cellIndex);
+  // console.log(clicked, rowIndex, cellIndex);
   
   let cellData = data[rowIndex][cellIndex];
   if (cellData) return;
@@ -79,26 +95,29 @@ function onClickBlock(e) {
     order = false;
     check(rowIndex, cellIndex);
   }
-  else {
+  else if (!order) {
     data[rowIndex][cellIndex] = 2; //white
     clicked.classList.add('white');
     order = true;
     check(rowIndex, cellIndex);
   }
+  turn(order);
   //console.log(data);
 }
 
 function check(x, y) {
+  let winner;
+
   //가로
   data.forEach((row, i) => {
     let checkRow = row.join('');
     if (checkRow.includes('1'.repeat(5))) {
-      alert('black 승리!');
-      gameOver();
+      winner = 'black';
+      gameOver(winner);
     }
     else if (checkRow.includes('2'.repeat(5))) {
-      alert('white 승리!');
-      gameOver();
+      winner = 'white';
+      gameOver(winner);
     }
   });
 
@@ -109,12 +128,12 @@ function check(x, y) {
       checkCol.push(data[j][i]);
     });
     if (checkCol.join('').includes('1'.repeat(5))) {
-      alert('black 승리!');
-      gameOver();
+      winner = 'black';
+      gameOver(winner);
     }
     else if (checkCol.join('').includes('2'.repeat(5))) {
-      alert('white 승리!')
-      gameOver();
+      winner = 'white';
+      gameOver(winner);
     }
   });
   //console.log(data);
@@ -160,16 +179,16 @@ function check(x, y) {
     }
   }
 
-  console.log('black down', checkBlackDownCross);
-  console.log('white down', checkWhiteDownCross);
+  // console.log('black down', checkBlackDownCross);
+  // console.log('white down', checkWhiteDownCross);
   
   if (checkBlackDownCross.join('').includes('1'.repeat(5))) {
-    alert('black 승리!');
-    gameOver();
+    winner = 'black';
+    gameOver(winner);
   }
   if (checkWhiteDownCross.join('').includes('2'.repeat(5))) {
-    alert('white 승리!');
-    gameOver();
+    winner = 'white';
+    gameOver(winner);
   }
 
   //대각선 위(black)
@@ -213,21 +232,45 @@ function check(x, y) {
     }
   }
 
-  console.log('black up', checkBlackUpCross);
-  console.log('white up', checkWhiteUpCross);
+  // console.log('black up', checkBlackUpCross);
+  // console.log('white up', checkWhiteUpCross);
   
   if (checkBlackUpCross.join('').includes('1'.repeat(5))) {
-    alert('black 승리!');
-    gameOver();
+    winner = 'black';
+    gameOver(winner);
   }
   if (checkWhiteUpCross.join('').includes('2'.repeat(5))) {
-    alert('white 승리!');
-    gameOver();
+    winner = 'white';
+    gameOver(winner);
   }
 }
 
-drawTable();
-
-function gameOver() {
+function gameOver(winner) {
   $table.removeEventListener('click', onClickBlock);
+
+  $alert.style.display = 'flex';
+  $winner.textContent = winner;
 }
+
+function turn(order) {
+  const $turnImg = $turn.querySelector('.turn-img');
+  if (order) {
+    $turnImg.innerHTML = '<img src="./images/black.png" alt="black">';
+  }
+  else {
+    $turnImg.innerHTML = '<img src="./images/white.png" alt="white">';
+  }
+}
+
+$restart.addEventListener('click', (e) => {
+  data = Array.from(Array(size), () => Array(size).fill(0));
+  $table.innerHTML = '';
+  drawTable();
+  $alert.style.display = 'none';
+});
+
+$reload.addEventListener('click', (e) => {
+  window.location.reload();
+});
+
+drawTable();
